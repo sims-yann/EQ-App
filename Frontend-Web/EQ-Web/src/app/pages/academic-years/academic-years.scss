@@ -1,0 +1,89 @@
+/* ░░ STYLE 1 — Minimal Modern ░░ */
+
+.btn-edit, .btn-delete {
+  padding: 6px 18px;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: 0.9rem;
+  border: 1.5px solid transparent;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+/* EDIT button */
+.btn-edit {
+  background: #eef5ff;
+  color: #1d4ed8;
+  border-color: #c7dbff;
+}
+.btn-edit:hover {
+  background: #dbeafe;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(29, 78, 216, 0.18);
+}
+
+/* DELETE button */
+.btn-delete {
+  background: #ffecec;
+  color: #b91c1c;
+  border-color: #f9c5c5;
+}
+.btn-delete:hover {
+  background: #fee2e2;
+  transform: translateY(-2px);
+  color: #b91c1c;
+
+  box-shadow: 0 4px 10px rgba(185, 28, 28, 0.18);
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn .25s ease-out;
+}
+
+/* Inputs */
+.input-field {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  padding: 10px 12px;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+}
+.input-field:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px #bae6fd;
+}
+
+/* Buttons */
+.btn-primary {
+  background: #29395b;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #29395bdd;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+.btn-danger:hover {
+  background: #dc2626;
+}

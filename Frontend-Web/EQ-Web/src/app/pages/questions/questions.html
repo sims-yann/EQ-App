@@ -1,0 +1,83 @@
+<div class="page-enter space-y-6">
+
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-2xl font-semibold text-slate-800">
+        Manage Questions — <span class="text-sky-600">{{ quiz?.title }}</span>
+      </h2>
+      <p class="text-sm text-slate-500">Add and edit questions for this quiz.</p>
+    </div>
+
+    <button
+      class="px-4 py-2 bg-sky-400 hover:bg-sky-600 text-white rounded-lg shadow text-sm"
+      (click)="openCreateModal()">
+      + Add Question
+    </button>
+  </div>
+
+  <div class="bg-white rounded-xl shadow p-4">
+
+    <table class="w-full table-auto">
+      <thead class="bg-gray-50 border-b">
+        <tr>
+          <th class="px-4 py-3 text-left text-gray-600">Question</th>
+          <th class="px-4 py-3 text-left text-gray-600">Correct</th>
+          <th class="px-4 py-3 text-left text-gray-600">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let q of quiz.questions" class="border-b hover:bg-gray-50 transition">
+          <td class="px-4 py-3">{{ q.question }}</td>
+          <td class="px-4 py-3">{{ q.correct_answer }}</td>
+
+          <td class="px-4 py-3 flex gap-3">
+            <button class="btn-edit" (click)="openEditModal(q)">Edit</button>
+            <button class="btn-delete" (click)="openDeleteConfirm(q)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
+<!-- CREATE / EDIT QUESTION MODAL -->
+<div *ngIf="modalOpen" class="modal-backdrop">
+  <div class="modal-content">
+
+    <h2 class="modal-title">{{ editingQuestion ? 'Edit Question' : 'Add Question' }}</h2>
+
+    <input class="modal-input" placeholder="Question" [(ngModel)]="newQuestion.question">
+
+    <input class="modal-input" placeholder="Option A" [(ngModel)]="newQuestion.A">
+    <input class="modal-input" placeholder="Option B" [(ngModel)]="newQuestion.B">
+    <input class="modal-input" placeholder="Option C" [(ngModel)]="newQuestion.C">
+    <input class="modal-input" placeholder="Option D" [(ngModel)]="newQuestion.D">
+
+    <input class="modal-input" placeholder="Correct Answer (A/B/C/D)" [(ngModel)]="newQuestion.correct_answer">
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="modalOpen=false">Cancel</button>
+      <button class="btn-primary" (click)="saveQuestion()">Save</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- DELETE CONFIRM -->
+<div *ngIf="deleteConfirmOpen" class="modal-backdrop">
+  <div class="modal-content">
+
+    <h2 class="modal-title text-red-600">Delete Question?</h2>
+    <p>Are you sure you want to delete this question?</p>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="cancelDelete()">Cancel</button>
+      <button class="btn-danger" (click)="deleteQuestion()">Delete</button>
+    </div>
+
+  </div>
+</div>

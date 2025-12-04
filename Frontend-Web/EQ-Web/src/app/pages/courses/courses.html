@@ -1,0 +1,94 @@
+<div class="page-enter space-y-6">
+
+  <!-- HEADER -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-2xl font-semibold text-slate-800">Manage Courses</h2>
+      <p class="text-sm text-slate-500">Create, edit and assign courses to classes.</p>
+    </div>
+
+    <button
+      class="px-4 py-2 bg-sky-400 hover:bg-sky-600 text-white text-sm rounded-lg shadow"
+      (click)="openCreateModal()">
+      + Add Course
+    </button>
+  </div>
+
+  <!-- TABLE CARD -->
+  <div class="bg-white rounded-xl shadow p-4">
+
+    <div class="flex justify-between items-center mb-4">
+      <input
+        type="text"
+        placeholder="Search courses..."
+        class="border border-slate-200 rounded-lg px-3 py-2 text-sm w-64 focus:outline-none focus:ring focus:ring-sky-200"
+      />
+
+      <span class="text-xs text-slate-400">Course data will come from backend.</span>
+    </div>
+
+    <div class="bg-white shadow-md border border-gray-200 overflow-hidden">
+      <table class="w-full table-auto">
+        <thead class="bg-gray-50 border-b">
+          <tr>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Title</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Description</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Class</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let course of courses" class="border-b hover:bg-gray-50 transition">
+            <td class="px-4 py-3">{{ course.title }}</td>
+            <td class="px-4 py-3">{{ course.description }}</td>
+            <td class="px-4 py-3">{{ course.class }}</td>
+
+            <td class="p-4 flex gap-3">
+              <button class="btn-edit" (click)="openEditModal(course)">Edit</button>
+              <button class="btn-delete" (click)="openDeleteConfirm(course)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- CREATE / EDIT COURSE MODAL -->
+<div *ngIf="modalOpen" class="modal-backdrop">
+  <div class="modal-content">
+
+    <h2 class="modal-title">
+      {{ editingCourse ? 'Edit Course' : 'Add Course' }}
+    </h2>
+
+    <input class="modal-input" placeholder="Course Title" [(ngModel)]="newCourse.title">
+    <input class="modal-input" placeholder="Description" [(ngModel)]="newCourse.description">
+    <input class="modal-input" placeholder="Class Name" [(ngModel)]="newCourse.class">
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="modalOpen=false">Cancel</button>
+      <button class="btn-primary" (click)="saveCourse()">Save</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- DELETE CONFIRM MODAL -->
+<div *ngIf="deleteConfirmOpen" class="modal-backdrop">
+  <div class="modal-content">
+
+    <h2 class="modal-title text-red-600">Delete Course?</h2>
+    <p>Are you sure you want to delete <strong>{{ courseToDelete?.title }}</strong>?</p>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="cancelDelete()">Cancel</button>
+      <button class="btn-danger" (click)="deleteCourse()">Delete</button>
+    </div>
+
+  </div>
+</div>

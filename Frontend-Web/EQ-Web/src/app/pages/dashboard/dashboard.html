@@ -1,0 +1,120 @@
+<div class="page-enter">
+  <div class="space-y-6">
+    <!-- Header -->
+    <header class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+      <div>
+        <h1 class="text-2xl font-semibold text-slate-900">Dashboard</h1>
+        <p class="text-sm text-slate-500">
+          Overview of students, classes, courses, quizzes and recent evaluations.
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <button
+          class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50"
+        >
+          Refresh data
+        </button>
+        <button
+          class="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-3 py-2 text-xs font-medium text-white shadow-sm hover:bg-sky-700"
+        >
+          + New Quiz
+        </button>
+      </div>
+    </header>
+
+    <!-- KPI cards -->
+    <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div class="rounded-xl bg-white p-4 shadow-sm border border-slate-100">
+        <p class="text-xs font-medium text-slate-500">Total Students</p>
+        <p class="mt-2 text-2xl font-semibold text-slate-900">128</p>
+        <p class="mt-1 text-xs text-emerald-500">+12 this semester</p>
+      </div>
+
+      <div class="rounded-xl bg-white p-4 shadow-sm border border-slate-100">
+        <p class="text-xs font-medium text-slate-500">Classes</p>
+        <p class="mt-2 text-2xl font-semibold text-slate-900">8</p>
+        <p class="mt-1 text-xs text-slate-400">Across all academic years</p>
+      </div>
+
+      <div class="rounded-xl bg-white p-4 shadow-sm border border-slate-100">
+        <p class="text-xs font-medium text-slate-500">Courses</p>
+        <p class="mt-2 text-2xl font-semibold text-slate-900">24</p>
+        <p class="mt-1 text-xs text-slate-400">Linked to quizzes</p>
+      </div>
+
+      <div class="rounded-xl bg-white p-4 shadow-sm border border-slate-100">
+        <p class="text-xs font-medium text-slate-500">Active Quizzes</p>
+        <p class="mt-2 text-2xl font-semibold text-slate-900">5</p>
+        <p class="mt-1 text-xs text-amber-500">2 closing this week</p>
+      </div>
+    </section>
+
+    <!-- Two-column layout: charts + recent activity -->
+    <section class="grid gap-4 lg:grid-cols-3">
+      <!-- Charts placeholder (2/3 width) -->
+      <div class="lg:col-span-2 space-y-4">
+        <div class="rounded-xl bg-white p-4 shadow-sm border border-slate-100 h-56">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-sm font-semibold text-slate-800">
+              Quiz Participation (placeholder)
+            </h2>
+            <span class="text-[11px] text-slate-400">Coming when backend is ready</span>
+          </div>
+          <div
+            class="h-full rounded-lg border border-dashed border-slate-200 flex items-center justify-center text-xs text-slate-400"
+          >
+            Chart component will be rendered here.
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-white p-4 shadow-sm border border-slate-100 h-56">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-sm font-semibold text-slate-800">
+              Sentiment per Course (placeholder)
+            </h2>
+            <span class="text-[11px] text-slate-400">Coming later</span>
+          </div>
+          <div
+            class="h-full rounded-lg border border-dashed border-slate-200 flex items-center justify-center text-xs text-slate-400"
+          >
+            Sentiment analysis chart will be rendered here.
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent activity / upcoming quizzes -->
+      <div class="space-y-4">
+        <div class="rounded-xl bg-white p-4 shadow-sm border border-slate-100">
+          <h2 class="text-sm font-semibold text-slate-800 mb-3">
+            Upcoming quizzes
+          </h2>
+          <ul class="space-y-2 text-xs text-slate-600">
+            <li class="flex items-center justify-between">
+              <span>Midterm – Web Architecture</span>
+              <span class="text-slate-400">Fri 10:00</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Quiz – Databases</span>
+              <span class="text-slate-400">Mon 14:00</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Final – Algorithms</span>
+              <span class="text-slate-400">Next week</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl bg-white p-4 shadow-sm border border-slate-100">
+          <h2 class="text-sm font-semibold text-slate-800 mb-3">
+            System notes
+          </h2>
+          <ul class="space-y-2 text-xs text-slate-600">
+            <li>• Connect backend to load real statistics.</li>
+            <li>• Implement student, class, and course CRUD APIs.</li>
+            <li>• Plug in sentiment analysis once model is ready.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
