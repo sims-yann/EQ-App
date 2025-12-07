@@ -20,16 +20,35 @@
     <table class="w-full table-auto">
       <thead class="bg-gray-50 border-b">
         <tr>
+          <th class="px-4 py-3"></th>
           <th class="px-4 py-3 text-left text-gray-600">Question</th>
+          <th class="px-4 py-3 text-left text-gray-600">Type</th>
           <th class="px-4 py-3 text-left text-gray-600">Correct</th>
+          <th class="px-4 py-3 text-left text-gray-600">Points</th>
           <th class="px-4 py-3 text-left text-gray-600">Actions</th>
+
         </tr>
       </thead>
 
-      <tbody>
-        <tr *ngFor="let q of quiz.questions" class="border-b hover:bg-gray-50 transition">
+      <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+        <tr *ngFor="let q of quiz.questions; let i = index" 
+            cdkDrag
+            class="border-b hover:bg-gray-50 transition">
+
+          <!-- Drag Handle -->
+          <td class="px-4 py-3 cursor-move opacity-60" cdkDragHandle>
+            ☰
+          </td>
+
           <td class="px-4 py-3">{{ q.question }}</td>
+
+          <td class="px-4 py-3 capitalize">{{ q.type }}</td>
+
           <td class="px-4 py-3">{{ q.correct_answer }}</td>
+
+          <td class="px-4 py-3 font-semibold text-sky-700">
+            {{ q.points }} pts
+          </td>
 
           <td class="px-4 py-3 flex gap-3">
             <button class="btn-edit" (click)="openEditModal(q)">Edit</button>
@@ -37,6 +56,7 @@
           </td>
         </tr>
       </tbody>
+
     </table>
 
   </div>
@@ -49,14 +69,33 @@
 
     <h2 class="modal-title">{{ editingQuestion ? 'Edit Question' : 'Add Question' }}</h2>
 
-    <input class="modal-input" placeholder="Question" [(ngModel)]="newQuestion.question">
+    <select class="modal-select" [(ngModel)]="newQuestion.type">
+      <option value="mcq">Multiple Choice</option>
+      <option value="open">Open-ended</option>
+    </select>
 
-    <input class="modal-input" placeholder="Option A" [(ngModel)]="newQuestion.A">
-    <input class="modal-input" placeholder="Option B" [(ngModel)]="newQuestion.B">
-    <input class="modal-input" placeholder="Option C" [(ngModel)]="newQuestion.C">
-    <input class="modal-input" placeholder="Option D" [(ngModel)]="newQuestion.D">
+    <!-- Common Question Text -->
+      <input class="modal-input" placeholder="Question" [(ngModel)]="newQuestion.question">
 
-    <input class="modal-input" placeholder="Correct Answer (A/B/C/D)" [(ngModel)]="newQuestion.correct_answer">
+      <!-- MULTIPLE CHOICE FIELDS -->
+      <div *ngIf="newQuestion.type === 'mcq'" class="space-y-2">
+        <input class="modal-input" placeholder="Option A" [(ngModel)]="newQuestion.A">
+        <input class="modal-input" placeholder="Option B" [(ngModel)]="newQuestion.B">
+        <input class="modal-input" placeholder="Option C" [(ngModel)]="newQuestion.C">
+        <input class="modal-input" placeholder="Option D" [(ngModel)]="newQuestion.D">
+        <input   type="number"  class="modal-input" placeholder="Points" [(ngModel)]="newQuestion.points" min="1">
+        <input class="modal-input" placeholder="Correct Answer (A/B/C/D)" [(ngModel)]="newQuestion.correct_answer">
+      </div>
+
+      <!-- OPEN-ENDED FIELD -->
+      <div *ngIf="newQuestion.type === 'open'">
+        <textarea
+          class="modal-input"
+          rows="4"
+          placeholder="Expected student response (optional)"
+          [(ngModel)]="newQuestion.correct_answer">
+        </textarea>
+      </div>
 
     <div class="modal-actions">
       <button class="btn-secondary" (click)="modalOpen=false">Cancel</button>

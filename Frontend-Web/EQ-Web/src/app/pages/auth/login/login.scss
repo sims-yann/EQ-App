@@ -1,0 +1,98 @@
+.auth-container {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-image {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  filter: brightness(70%);
+}
+
+.glass-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 380px;
+
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px);
+  padding: 40px;
+  border-radius: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+
+  text-align: center;
+}
+
+.glass-card h2 {
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+  margin: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.25);
+  color: white;
+
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.input::placeholder {
+  color: #f1f5f9;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  background: rgba(255,255,255,0.35);
+}
+
+.btn-main {
+  width: 100%;
+  padding: 14px;
+
+  background: #0284c7;
+  border-radius: 12px;
+  color: white;
+  font-weight: 300;
+
+  margin-top: 10px;
+  transition: 0.25s;
+}
+
+.btn-main:hover {
+  background: #0369a1;
+}
+
+.switch {
+  margin-top: 18px;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+}
+
+.switch a {
+  color: #38bdf8;
+  font-weight: 400;
+  cursor: pointer;
+}

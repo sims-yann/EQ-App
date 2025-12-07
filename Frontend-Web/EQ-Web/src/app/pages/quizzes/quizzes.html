@@ -33,6 +33,11 @@
           <tr>
             <th class="px-4 py-3 text-left text-gray-600 font-semibold">Quiz Title</th>
             <th class="px-4 py-3 text-left text-gray-600 font-semibold">Course</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Evaluation</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Semester</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">AcademicYear</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Status</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Classes</th>
             <th class="px-4 py-3 text-left text-gray-600 font-semibold">Questions</th>
             <th class="px-4 py-3 text-left text-gray-600 font-semibold">Actions</th>
           </tr>
@@ -42,12 +47,21 @@
           <tr *ngFor="let quiz of quizzes" class="border-b hover:bg-gray-50 transition">
             <td class="px-4 py-3">{{ quiz.title }}</td>
             <td class="px-4 py-3">{{ quiz.course }}</td>
+            <td class="px-4 py-3">{{ quiz.evaluationType }}</td>
+            <td class="px-4 py-3">{{ quiz.semester }}</td>
+            <td class="px-4 py-3">{{ quiz.academicYear }}</td>
+            <td class="px-4 py-3">{{ quiz.status }}</td>
+            <td class="px-4 py-3">{{ quiz.classes.join(', ') }}</td>
             <td class="px-4 py-3">{{ quiz.questions.length }}</td>
 
             <td class="p-4 flex gap-3">
               <button class="btn-primary" (click)="openQuestionsPage(quiz)">Questions</button>
               <button class="btn-edit" (click)="openEditModal(quiz)">Edit</button>
               <button class="btn-delete" (click)="openDeleteConfirm(quiz)">Delete</button>
+              <button class="btn-primary" (click)="publishQuiz()">Publish</button>
+
+
+
             </td>
           </tr>
         </tbody>
@@ -64,13 +78,53 @@
 
     <h2 class="modal-title">{{ editingQuiz ? 'Edit Quiz' : 'Create Quiz' }}</h2>
 
-    <input class="modal-input" placeholder="Quiz Title" [(ngModel)]="newQuiz.title">
-    <input class="modal-input" placeholder="Course" [(ngModel)]="newQuiz.course">
+    <div class="space-y-3">
 
+      <input class="modal-input" placeholder="Quiz Title" [(ngModel)]="newQuiz.title">
+      <input class="modal-input" placeholder="Course" [(ngModel)]="newQuiz.course">
+
+      <!-- Evaluation Type -->
+      <select class="modal-select" [(ngModel)]="newQuiz.evaluationType">
+        <option value="" disabled selected>Select Evaluation Type</option>
+        <option *ngFor="let type of evaluationTypes" [value]="type">{{ type }}</option>
+      </select>
+
+      <!-- Semester -->
+      <select class="modal-select" [(ngModel)]="newQuiz.semester">
+        <option value="" disabled selected>Select Semester</option>
+        <option *ngFor="let sem of semesters" [value]="sem">{{ sem }}</option>
+      </select>
+
+      <!-- Academic Year -->
+      <select class="modal-select" [(ngModel)]="newQuiz.academicYear">
+        <option value="" disabled>Select Academic Year</option>
+        <option *ngFor="let year of academicYears" [value]="year">{{ year }}</option>
+      </select>
+
+      <!-- Status -->
+      <select class="modal-select" [(ngModel)]="newQuiz.status">
+        <option *ngFor="let stat of statusOptions" [value]="stat">{{ stat }}</option>
+      </select>
+
+      <!-- Classes Dropdown (multi-select) -->
+      <select class="modal-select" multiple [(ngModel)]="newQuiz.classes">
+        <option *ngFor="let cls of classOptions" [value]="cls">{{ cls }}</option>
+      </select>
+
+    </div>
+
+    <!-- ACTIONS -->
     <div class="modal-actions">
       <button class="btn-secondary" (click)="modalOpen=false">Cancel</button>
+
+      <!-- Publish button only when editing -->
+      <button *ngIf="editingQuiz" class="btn-primary" (click)="publishQuiz()">
+        Publish
+      </button>
+
       <button class="btn-primary" (click)="saveQuiz()">Save</button>
     </div>
+
 
   </div>
 </div>

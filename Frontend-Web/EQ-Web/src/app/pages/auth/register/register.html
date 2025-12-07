@@ -1,0 +1,25 @@
+<div class="auth-container">
+  <img class="bg-image" src="assets/bg/login.jpg" />
+
+  <div class="glass-card animate-fade">
+    <h2>Create account On EQ</h2>
+    <p class="subtitle">Join us today</p>
+
+    <form (ngSubmit)="register()">
+      <input class="input" placeholder="Full Name" [(ngModel)]="name" name="name" required />
+
+      <input class="input" placeholder="Email Address" type="email" [(ngModel)]="email" name="email" required />
+
+      <input class="input" placeholder="Password" type="password" [(ngModel)]="password" name="password" required />
+
+      <input class="input" placeholder="Confirm Password" type="password" [(ngModel)]="confirm" name="confirm" required />
+
+      <button class="btn-main">Sign up</button>
+    </form>
+
+    <p class="switch">
+      Already have an account?
+      <a routerLink="/login">Sign in</a>
+    </p>
+  </div>
+</div>

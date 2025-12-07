@@ -15,26 +15,37 @@ export class Courses {
   modalOpen = false;
   deleteConfirmOpen = false;
 
-  courses = [
-    { title: "Mathematics", description: "Algebra, calculus & more", class: "Year 4" },
-    { title: "Physics", description: "Mechanics & waves", class: "Year 4" }
-  ];
+  classOptions = [
+  "Year 1",
+  "Year 2",
+  "Year 3",
+  "Year 4",
+  "Year 5"
+];
 
-  newCourse = { title: "", description: "", class: "" };
+  courses = [
+  { title: "Mathematics", description: "Algebra, calculus & more", class: "Year 4", code: "MATH401", lecturer: "Dr. Smith" },
+  { title: "Physics", description: "Mechanics & waves", class: "Year 4", code: "PHY402", lecturer: "Dr. Albert" }
+];
+
+
+  newCourse = { title: "", description: "", class: "", code: "", lecturer: "" };
   editingCourse: any = null;
   courseToDelete: any = null;
 
   openCreateModal() {
-    this.modalOpen = true;
-    this.editingCourse = null;
-    this.newCourse = { title: "", description: "", class: "" };
-  }
+  this.modalOpen = true;
+  this.editingCourse = null;
+  this.newCourse = { title: "", description: "", class: "", code: "", lecturer: "" };
+}
+
 
   openEditModal(course: any) {
-    this.modalOpen = true;
-    this.editingCourse = course;
-    this.newCourse = { ...course };
-  }
+  this.modalOpen = true;
+  this.editingCourse = course;
+  this.newCourse = { ...course };
+}
+
 
   saveCourse() {
     if (this.editingCourse) {

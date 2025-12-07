@@ -1,0 +1,35 @@
+<div class="auth-container">
+  <img class="bg-image" src="assets/bg/login.jpg" />
+
+  <div class="glass-card animate-fade">
+    <h2>Welcome back To EQ</h2>
+    <p class="subtitle">Sign in to continue</p>
+
+    <form (ngSubmit)="login()">
+      <input
+        type="email"
+        class="input"
+        placeholder="Email"
+        [(ngModel)]="email"
+        name="email"
+        required
+      />
+
+      <input
+        type="password"
+        class="input"
+        placeholder="Password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+
+      <button class="btn-main" type="submit">Sign in</button>
+    </form>
+
+    <p class="switch">
+      Don't have an account?
+      <a routerLink="/register">Sign up</a>
+    </p>
+  </div>
+</div>

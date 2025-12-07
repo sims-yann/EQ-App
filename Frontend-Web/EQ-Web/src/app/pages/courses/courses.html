@@ -32,6 +32,8 @@
         <thead class="bg-gray-50 border-b">
           <tr>
             <th class="px-4 py-3 text-left text-gray-600 font-semibold">Title</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Code</th>
+            <th class="px-4 py-3 text-left text-gray-600 font-semibold">Lecturer</th>
             <th class="px-4 py-3 text-left text-gray-600 font-semibold">Description</th>
             <th class="px-4 py-3 text-left text-gray-600 font-semibold">Class</th>
             <th class="px-4 py-3 text-left text-gray-600 font-semibold">Actions</th>
@@ -41,6 +43,9 @@
         <tbody>
           <tr *ngFor="let course of courses" class="border-b hover:bg-gray-50 transition">
             <td class="px-4 py-3">{{ course.title }}</td>
+            <td class="px-4 py-3">{{ course.code }}</td>
+            <td class="px-4 py-3">{{ course.lecturer }}</td>
+
             <td class="px-4 py-3">{{ course.description }}</td>
             <td class="px-4 py-3">{{ course.class }}</td>
 
@@ -67,7 +72,15 @@
 
     <input class="modal-input" placeholder="Course Title" [(ngModel)]="newCourse.title">
     <input class="modal-input" placeholder="Description" [(ngModel)]="newCourse.description">
-    <input class="modal-input" placeholder="Class Name" [(ngModel)]="newCourse.class">
+    <input class="modal-input" placeholder="Course Code (e.g. MATH401)" [(ngModel)]="newCourse.code">
+    <input class="modal-input" placeholder="Lecturer Name" [(ngModel)]="newCourse.lecturer">
+    <select [(ngModel)]="newCourse.class" class="modal-input">
+      <option value="" disabled selected>Select Class</option>
+      <option *ngFor="let cls of classOptions" [value]="cls">
+        {{ cls }}
+      </option>
+    </select>
+
 
     <div class="modal-actions">
       <button class="btn-secondary" (click)="modalOpen=false">Cancel</button>
