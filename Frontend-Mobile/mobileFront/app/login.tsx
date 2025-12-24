@@ -23,8 +23,9 @@ export default function Login() {
         <Image source={require("../assets/images/EQapp-logo.png")} style={styles.image} />
         {/* <Text>Edit app/login.tsx to customize this screen.</Text> */}
       </View>
-      <TextInput placeholder="Username" style={styles.input} />
-      <TextInput placeholder="Password" secureTextEntry style={styles.input} />
+      <TextInput placeholder="Matricule" style={styles.input} />
+      <TextInput placeholder="School Mail" style={styles.input} />
+      <TextInput placeholder="Class" style={styles.input} />
       <Pressable style={styles.button} onPress={() => {}} onPressIn={handlePressIn} onPressOut={handlePressOut}>
         <Animated.View style={[styles.animatedButton, { backgroundColor: bgColor }]}>
           <Text style={styles.buttonText}>Login</Text>
