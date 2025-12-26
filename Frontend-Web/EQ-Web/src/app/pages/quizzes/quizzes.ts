@@ -30,7 +30,7 @@ academicYears = Array.from({ length: 6 }, (_, i) => {
 classOptions = ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5"];
 
 statusOptions = ["Draft", "Published"];
-  
+
 
   quizzes = [
   {
@@ -65,7 +65,7 @@ statusOptions = ["Draft", "Published"];
     this.modalOpen = true;
     this.editingQuiz = null;
     this.newQuiz = { title: "", course: "", evaluationType: "", semester: "", academicYear: "", status: "Draft", classes: [], questions: []};
-  } 
+  }
 
   openEditModal(quiz: any) {
     this.modalOpen = true;
