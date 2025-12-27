@@ -21,7 +21,9 @@ const authenticate = async (req, res, next) => {
             userId: decoded.userId,
             email: decoded.email,
             roleId: decoded.roleId,
-            roleName: decoded.roleName
+            roleName: decoded.roleName,
+            matricule: decoded.matricule || null,
+            classId: decoded.classId || null
         };
 
         next();

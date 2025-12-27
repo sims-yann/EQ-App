@@ -1,11 +1,12 @@
 const db = require('../config/database');
 
 class UserModel {
-    // Create admin user
+    // Create admin user with verification code
     static async createAdmin(userData) {
         const query = `
-            INSERT INTO users (first_name, last_name, email, password, role_id, email_verified, is_active)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO users (first_name, last_name, email, password, role_id,
+                               email_verified, is_active, verification_code, verification_expires)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const [result] = await db.execute(query, [
             userData.firstName,
@@ -13,13 +14,52 @@ class UserModel {
             userData.email,
             userData.password,
             userData.roleId,
-            userData.emailVerified || false,
-            userData.isActive !== undefined ? userData.isActive : true
+            false, // email_verified = false initially
+            false, // is_active = false until verified
+            userData.verificationCode,
+            userData.verificationExpires
         ]);
         return result.insertId;
     }
 
-    // Create student user - FIXED VERSION
+    // Find user with verification code
+    static async findByVerificationCode(code) {
+        const query = `
+            SELECT u.*, r.role_name
+            FROM users u
+                     JOIN roles r ON u.role_id = r.role_id
+            WHERE u.verification_code = ? AND u.verification_expires > NOW()
+        `;
+        const [rows] = await db.execute(query, [code]);
+        return rows[0] || null;
+    }
+
+    // Verify user email
+    static async verifyEmail(userId) {
+        const query = `
+            UPDATE users
+            SET email_verified = true,
+                is_active = true,
+                verification_code = NULL,
+                verification_expires = NULL
+            WHERE user_id = ?
+        `;
+        const [result] = await db.execute(query, [userId]);
+        return result.affectedRows > 0;
+    }
+
+    // Resend verification code
+    static async updateVerificationCode(userId, code, expires) {
+        const query = `
+            UPDATE users
+            SET verification_code = ?, verification_expires = ?
+            WHERE user_id = ?
+        `;
+        const [result] = await db.execute(query, [code, expires, userId]);
+        return result.affectedRows > 0;
+    }
+
+    // Create student user
     static async createStudent(userData) {
         const query = `
             INSERT INTO users (first_name, last_name, email, password, matricule, class_id, role_id, email_verified, is_active)
@@ -29,11 +69,11 @@ class UserModel {
             userData.firstName,
             userData.lastName,
             userData.email,
-            userData.password, // here the password is not used in the login it is just because the DB needs it
+            userData.password,
             userData.matricule,
             userData.classId,
             userData.roleId,
-            userData.emailVerified || true,
+            userData.emailVerified || true, // Students auto-verified by admin
             userData.isActive !== undefined ? userData.isActive : true
         ]);
         return result.insertId;
@@ -42,11 +82,11 @@ class UserModel {
     // Find user by email
     static async findByEmail(email) {
         const query = `
-            SELECT u.*, r.role_name
-            FROM users u
-                     JOIN roles r ON u.role_id = r.role_id
-            WHERE u.email = ?
-        `;
+      SELECT u.*, r.role_name 
+      FROM users u
+      JOIN roles r ON u.role_id = r.role_id
+      WHERE u.email = ?
+    `;
         const [rows] = await db.execute(query, [email]);
         return rows[0] || null;
     }
@@ -54,11 +94,11 @@ class UserModel {
     // Find user by matricule
     static async findByMatricule(matricule) {
         const query = `
-            SELECT u.*, r.role_name
-            FROM users u
-                     JOIN roles r ON u.role_id = r.role_id
-            WHERE u.matricule = ?
-        `;
+      SELECT u.*, r.role_name 
+      FROM users u
+      JOIN roles r ON u.role_id = r.role_id
+      WHERE u.matricule = ?
+    `;
         const [rows] = await db.execute(query, [matricule]);
         return rows[0] || null;
     }
@@ -66,11 +106,11 @@ class UserModel {
     // Find user by ID
     static async findById(userId) {
         const query = `
-            SELECT u.*, r.role_name
-            FROM users u
-                     JOIN roles r ON u.role_id = r.role_id
-            WHERE u.user_id = ?
-        `;
+      SELECT u.*, r.role_name 
+      FROM users u
+      JOIN roles r ON u.role_id = r.role_id
+      WHERE u.user_id = ?
+    `;
         const [rows] = await db.execute(query, [userId]);
         return rows[0] || null;
     }
@@ -98,14 +138,14 @@ class UserModel {
     // Get all students
     static async getAllStudents() {
         const query = `
-            SELECT u.user_id, u.first_name, u.last_name, u.email, u.matricule,
-                   u.class_id, c.class_name, u.is_active, u.registration_date
-            FROM users u
-                     LEFT JOIN classes c ON u.class_id = c.class_id
-                     JOIN roles r ON u.role_id = r.role_id
-            WHERE r.role_name = 'Student'
-            ORDER BY u.registration_date DESC
-        `;
+      SELECT u.user_id, u.first_name, u.last_name, u.email, u.matricule, 
+             u.class_id, c.class_name, u.is_active, u.registration_date
+      FROM users u
+      LEFT JOIN classes c ON u.class_id = c.class_id
+      JOIN roles r ON u.role_id = r.role_id
+      WHERE r.role_name = 'Student'
+      ORDER BY u.registration_date DESC
+    `;
         const [rows] = await db.execute(query);
         return rows;
     }

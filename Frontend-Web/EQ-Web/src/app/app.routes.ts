@@ -13,6 +13,7 @@ import { Courses } from './pages/courses/courses';
 import { AcademicYearsComponent } from './pages/academic-years/academic-years';
 import { Quizzes } from './pages/quizzes/quizzes';
 import { SentimentAnalysis } from './pages/sentiment-analysis/sentiment-analysis';
+import { Questions } from './pages/questions/questions';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -31,6 +32,7 @@ export const routes: Routes = [
       { path: 'courses', component: Courses },
       { path: 'academic-years', component: AcademicYearsComponent },
       { path: 'quizzes', component: Quizzes },
+      { path: 'questions', component: Questions },
       { path: 'sentiment-analysis', component: SentimentAnalysis },
     ]
   }

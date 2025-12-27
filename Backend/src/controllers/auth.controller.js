@@ -6,9 +6,31 @@ class AuthController {
     static async adminSignup(req, res) {
         try {
             const result = await AuthService.adminSignup(req.body);
-            return successResponse(res, result, 'Admin registered successfully', 201);
+            return successResponse(res, result, result.message, 201);
         } catch (error) {
             return errorResponse(res, error.message, error.statusCode || 500);
+        }
+    }
+
+    // Verify email with code
+    static async verifyEmail(req, res) {
+        try {
+            const { code } = req.body;
+            const result = await AuthService.verifyEmail(code);
+            return successResponse(res, result, result.message);
+        } catch (error) {
+            return errorResponse(res, error.message, error.statusCode || 400);
+        }
+    }
+
+    // Resend verification code
+    static async resendVerificationCode(req, res) {
+        try {
+            const { email } = req.body;
+            const result = await AuthService.resendVerificationCode(email);
+            return successResponse(res, result, result.message);
+        } catch (error) {
+            return errorResponse(res, error.message, error.statusCode || 400);
         }
     }
 

@@ -43,6 +43,8 @@ app.use('/api/academic-years', require('./routes/academicYear.routes'));
 app.use('/api/semesters', require('./routes/semester.routes'));
 app.use('/api/classes', require('./routes/class.routes'));
 app.use('/api/courses', require('./routes/course.routes'));
+app.use('/api/quizzes', require('./routes/quiz.routes'));
+app.use('/api/import', require('./routes/import.routes'));
 // 404 handler
 app.use((req, res) => {
     res.status(404).json({

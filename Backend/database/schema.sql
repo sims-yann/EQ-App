@@ -9,6 +9,7 @@ USE equizz;
 --  
 -- 1. USERS & AUTHENTICATION
 --  
+-- Add these columns to the users table
 
 -- Roles table
 CREATE TABLE roles (
@@ -35,6 +36,11 @@ CREATE TABLE users (
                        last_login_date TIMESTAMP NULL,
                        FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
+
+ALTER TABLE users
+    ADD COLUMN verification_code VARCHAR(6),
+    ADD COLUMN verification_expires TIMESTAMP NULL,
+    ADD INDEX idx_verification_code (verification_code);
 
 -- Email verification tokens
 CREATE TABLE email_verification_tokens (

@@ -34,6 +34,40 @@ const validateAdminSignup = [
     }
 ];
 
+// Email verification validation
+const validateEmailVerification = [
+    body('code')
+        .trim()
+        .notEmpty().withMessage('Verification code is required')
+        .isLength({ min: 6, max: 6 }).withMessage('Verification code must be 6 digits')
+        .isNumeric().withMessage('Verification code must be numeric'),
+
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return errorResponse(res, 'Validation failed', 400, errors.array());
+        }
+        next();
+    }
+];
+
+// Resend verification code validation
+const validateResendCode = [
+    body('email')
+        .trim()
+        .notEmpty().withMessage('Email is required')
+        .isEmail().withMessage('Invalid email format')
+        .normalizeEmail(),
+
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return errorResponse(res, 'Validation failed', 400, errors.array());
+        }
+        next();
+    }
+];
+
 // Student login validation
 const validateStudentLogin = [
     body('matricule')
@@ -113,6 +147,8 @@ const validateStudentCreation = [
 
 module.exports = {
     validateAdminSignup,
+    validateEmailVerification,
+    validateResendCode,
     validateStudentLogin,
     validateAdminLogin,
     validateStudentCreation
